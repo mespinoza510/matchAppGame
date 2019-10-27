@@ -8,7 +8,7 @@ class CardModel {
         var generatedNumbersArray = [Int]()
         
         // Declare an array to store generated cards
-        var generatedArrayOfCards = [Card]()
+        var generatedCardsArray = [Card]()
         
         // Randomly generate pairs of cards
         while generatedNumbersArray.count < 8 {
@@ -30,22 +30,27 @@ class CardModel {
                 cardOne.imageName = "card\(randomNumber)"
                 
                 // Add created card in array
-                generatedArrayOfCards.append(cardOne)
+                generatedCardsArray.append(cardOne)
                 
                 // Create Second card object
                 let cardTwo = Card()
                 cardTwo.imageName = "card\(randomNumber)"
                 
                 // Add second card in array
-                generatedArrayOfCards.append(cardTwo)
+                generatedCardsArray.append(cardTwo)
             }
-            
-            // Make it so we only have unique pairs of cards
-            
         }
         
-        // Return the array of cards shuffled
-        return generatedArrayOfCards.shuffled()
+        // Randomize the array
+        for i in 0...generatedCardsArray.count-1 {
+            let randomNumber = Int(arc4random_uniform(UInt32(generatedCardsArray.count)))
+            let tempStorage = generatedCardsArray[i]
+            
+            // Swap two cards
+            generatedCardsArray[i] = generatedCardsArray[randomNumber]
+            generatedCardsArray[randomNumber] = tempStorage
+        }
+        // Return the array
+        return generatedCardsArray
     }
-    
 }
