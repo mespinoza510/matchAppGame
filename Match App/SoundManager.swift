@@ -9,10 +9,10 @@
 import Foundation
 import AVFoundation
 
-class SoundManger {
+class SoundManager {
 
-    var audioPlayer: AVAudioPlayer?
-    var soundFilename: String?
+    static var audioPlayer: AVAudioPlayer?
+    static var soundFilename: String?
     
     enum SoundEffect {
         case flip
@@ -21,7 +21,7 @@ class SoundManger {
         case shuffle
     }
     
-    func playSound(_ effect: SoundEffect) {
+    static func playSound(_ effect: SoundEffect) {
         
         // Determine cases for sound effects
         switch effect {
