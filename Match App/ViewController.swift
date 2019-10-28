@@ -13,6 +13,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
     
+    var stackView: UIView?
     var model = CardModel()
     var cardArray = [Card]()
     var firstFlippedCardIndex: IndexPath?
@@ -30,6 +31,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         // Create timer object
         timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(timeElapsed), userInfo: nil, repeats: true)
+        
+        // Set style and size of timerLabel
+        timerLabel.font = .boldSystemFont(ofSize: 15)
         
         // Timer continues during scrolling
         RunLoop.main.add(timer!, forMode: .common)
@@ -52,6 +56,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         // Set timer label
         timerLabel.text = "Time Remaining: \(seconds)s"
+        
+        // Changing color to orange when user reaches 5 sec
+        if  milliseconds <= 5000 && milliseconds >= 1000 {
+            timerLabel.textColor = .systemOrange
+        }
         
         // Stop timer at 0
         if milliseconds <= 0 {
@@ -184,9 +193,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                 break
             }
         }
-        
-        
-        
+         
         // If not then user has won and stop timer
         if isWon {
             
