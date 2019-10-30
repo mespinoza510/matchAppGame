@@ -14,7 +14,7 @@ class CardModel {
         while generatedNumbersArray.count < 8 {
             
             // Create random number
-            let randomNumber = arc4random_uniform(13) + 1
+            let randomNumber = Int.random(in: 0...13)
             
             // Ensure random number isn't the same in array
             if generatedNumbersArray.contains(Int(randomNumber)) == false {

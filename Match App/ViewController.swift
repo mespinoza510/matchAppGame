@@ -229,6 +229,5 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         alert.addAction(alertCTA)
         present(alert, animated: true, completion: nil)
     }
-    
 } // End ViewController Class
 
