@@ -30,7 +30,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         collectionView.dataSource = self
         
         // Create timer object
-        timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(timeElapsed), userInfo: nil, repeats: true)
+        startTimer()
         
         // Set style and size of timerLabel
         timerLabel.font = .boldSystemFont(ofSize: 15)
@@ -47,6 +47,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     // MARK: - Timer Methods
+    
+    func startTimer() {
+        timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(timeElapsed), userInfo: nil, repeats: true)
+    }
+    
     @objc func timeElapsed() {
         
         milliseconds -= 1
@@ -72,8 +77,14 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
     }
     
-    // MARK: - UICollectionView Protocol Methods
+    func resetTimer() {
+        
+        timer!.invalidate()
+        timerLabel.textColor = .black
+        milliseconds = 20 * 1000 // 20 seconds
+    }
     
+    // MARK: - UICollectionView Protocol Methods
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         return cardArray.count
@@ -120,7 +131,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                 
                 // This is the second card flipped
                 
-                
                 // Perform matching logic
                 checkForMatches(indexPath)
             }
@@ -128,7 +138,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     // MARK: - Game Logic Method
-    
     func checkForMatches(_ secondFlippedCardIndex: IndexPath) {
         
         // Get the cells for the two cards were revealed
